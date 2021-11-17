@@ -6,8 +6,12 @@
     "php-di/php-di": "5.3.0"
   },
   "autoload": {
+    "classmap": ["src/", "lib/"],
     "psr-4": {
       "Snowdog\\DevTest\\": "src"
+    },
+    "psr-0": {
+      "Old_Legacy_": "lib/"
     },
     "files": [
       "src/components.php"
