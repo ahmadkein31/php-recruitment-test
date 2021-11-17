@@ -1,0 +1,7 @@
+app/
+doc/
+vendor/
+lib/
+web/css/bootstrap.min.css
+console.php
+conf.ini
