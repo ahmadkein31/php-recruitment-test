@@ -5,6 +5,7 @@ namespace Snowdog\DevTest\Command;
 use Snowdog\DevTest\Model\PageManager;
 use Snowdog\DevTest\Model\WebsiteManager;
 use Symfony\Component\Console\Output\OutputInterface;
+use Snowdog\DevTest\Model\PageVisitManager;
 
 class WarmCommand
 {
@@ -16,11 +17,16 @@ class WarmCommand
      * @var PageManager
      */
     private $pageManager;
+    /**
+     * @var PageVisitManager
+     */
+    private $pageVisitManager;
 
-    public function __construct(WebsiteManager $websiteManager, PageManager $pageManager)
+    public function __construct(WebsiteManager $websiteManager, PageManager $pageManager, PageVisitManager $pageVisitManager)
     {
         $this->websiteManager = $websiteManager;
         $this->pageManager = $pageManager;
+        $this->pageVisitManager = $pageVisitManager;
     }
 
     public function __invoke($id, OutputInterface $output)
@@ -40,6 +46,7 @@ class WarmCommand
             $warmer->setActor($actor);
 
             foreach ($pages as $page) {
+                $this->pageVisitManager->update($page);
                 $warmer->warm($page->getUrl());
             }
         } else {
