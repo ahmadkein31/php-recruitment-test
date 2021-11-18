@@ -37,4 +37,26 @@ class PageManager
         $statement->execute();
         return $this->database->lastInsertId();
     }
+
+    public function getAssociatedPagesCountByUser(User $user)
+    {
+        $userId = $user->getUserId();
+        /** @var \PDOStatement $query */
+        $query = $this->database->prepare('SELECT COUNT(*) as associated_page FROM pages WHERE website_id IN (SELECT website_id FROM websites WHERE user_id = :user )');
+        $query->setFetchMode(\PDO::FETCH_CLASS, Page::class);
+        $query->bindParam(':user', $userId, \PDO::PARAM_INT);
+        $query->execute();
+        return $query->fetch(\PDO::FETCH_CLASS)->associated_page;
+    }
+
+    public function getPageById(PageVisit $page)
+    {
+        $pageId =  $page->getPageId();
+        /** @var \PDOStatement $query */
+        $query = $this->database->prepare('SELECT * FROM pages WHERE page_id = :page_id');
+        $query->setFetchMode(\PDO::FETCH_CLASS, Page::class);
+        $query->bindParam(':page_id', $pageId, \PDO::PARAM_INT);
+        $query->execute();
+        return $query->fetch(\PDO::FETCH_CLASS);
+    }
 }

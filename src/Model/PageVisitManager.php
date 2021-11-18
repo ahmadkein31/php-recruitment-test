@@ -59,4 +59,26 @@ class PageVisitManager
             return $this->database->lastInsertId();
         }
     }
+
+    public function getLeastVisitedPageByUser(User $user)
+    {
+        $userId = $user->getUserId();
+        /** @var \PDOStatement $query */
+        $query = $this->database->prepare('SELECT * FROM page_visit WHERE page_id IN ( SELECT page_id as associated_page FROM pages WHERE website_id IN (SELECT website_id FROM websites WHERE user_id = :user ) ) ORDER BY visited_at ASC LIMIT 1 ');
+        $query->setFetchMode(\PDO::FETCH_CLASS, PageVisit::class);
+        $query->bindParam(':user', $userId, \PDO::PARAM_INT);
+        $query->execute();
+        return $query->fetch(\PDO::FETCH_CLASS);
+    }
+
+    public function getRecentlyVisitedPageByUser(User $user)
+    {
+        $userId = $user->getUserId();
+        /** @var \PDOStatement $query */
+        $query = $this->database->prepare('SELECT * FROM page_visit WHERE page_id IN ( SELECT page_id as associated_page FROM pages WHERE website_id IN (SELECT website_id FROM websites WHERE user_id = :user ) ) ORDER BY visited_at DESC LIMIT 1 ');
+        $query->setFetchMode(\PDO::FETCH_CLASS, PageVisit::class);
+        $query->bindParam(':user', $userId, \PDO::PARAM_INT);
+        $query->execute();
+        return $query->fetch(\PDO::FETCH_CLASS);
+    }
 }

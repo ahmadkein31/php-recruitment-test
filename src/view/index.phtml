@@ -62,8 +62,14 @@
                             <td><a href="/website/<?= $website->getWebsiteId() ?>"><?= $website->getName() ?></a></td>
                             <td><?= $website->getHostname() ?></td>
                         </tr>
+                        <?php $this->getWebsitePages($website) ?>
                     <?php endforeach ?>
                 </table>
+            </div>
+            <div class="user-container">
+                <div><b><span>Total # of pages:</span></b><span><?= $this->getTotalAssociatedPages() ?></span></div>
+                <div><b><span>Least visited page:</span></b><span><?= $this->getLeastVisitedPage() ?></span></div>
+                <div><b><span>Most recently visited page:</span></b><span><?= $this->getRecentlyVisitedPage() ?></span></div>
             </div>
         <?php endif ?>
     </div>
