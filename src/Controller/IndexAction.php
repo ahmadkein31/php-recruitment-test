@@ -55,6 +55,10 @@ class IndexAction
 
     public function execute()
     {
-        require __DIR__ . '/../view/index.phtml';
+        if (isset($_SESSION['login'])) {
+            require __DIR__ . '/../view/index.phtml';
+        } else {
+            require __DIR__ . '/../view/404.phtml';
+        }
     }
 }
