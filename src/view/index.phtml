@@ -59,6 +59,14 @@
                         <input type="text" name="hostname" class="form-control" id="exampleInputUrl2"
                                placeholder="website.org">
                     </div>
+                    <div class="form-group">
+                        <label for="color">Domain:</label>
+                        <select name="server_id" id="server">
+                            <?php foreach ($this->getServerList() as $key => $server):?>
+                                <option value=<?= $server->server_id ?> ><?= $server->server_ip ?></option>
+                            <?php endforeach; ?>
+                        </select>
+                    </div>
                     <button type="submit" class="btn btn-primary">Add Website</button>
                 </form>
             </div>

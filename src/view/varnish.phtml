@@ -46,7 +46,7 @@
 
         <?php foreach ($this->getVarnishes() as $varnish): /** @var \Snowdog\DevTest\Model\Varnish $varnish */ ?>
             <?php $websiteIds = $this->getAssignedWebsiteIds($varnish) ?>
-            <h2><?= $varnish->getIP() ?></h2>
+            <h2><?= $varnish->getServerIp() ?></h2>
 
             <div class="padded">
                 <table class="table table-striped">
