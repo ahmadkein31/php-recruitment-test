@@ -37,6 +37,18 @@ class ServerWebsiteRelationManager
         return $query->fetchAll(\PDO::FETCH_CLASS, ServerWebsiteRelation::class);
     }
 
+    public function getServerByWebsite(Website $website)
+    {
+        $websiteId = $website->getWebsiteId();
+        /** @var \PDOStatement $query */
+        $query = $this->database->prepare('SELECT * FROM server_website WHERE website_id = :webid');
+        $query->setFetchMode(\PDO::FETCH_CLASS, ServerWebsiteRelation::class);
+        $query->bindParam(':webid', $websiteId, \PDO::PARAM_STR);
+        $query->execute();
+        /** @var Website $website */
+        return $query->fetch(\PDO::FETCH_CLASS);
+    }
+
     public function create($serverId, $webid)
     {
         /** @var \PDOStatement $statement */
@@ -50,7 +62,7 @@ class ServerWebsiteRelationManager
     public function getServWebRelationDataByUser(User $user)
     {
         $userId = $user->getUserId();
-        /** @var \PDOStatement $query */
+        /** @var \PDOStatement $query */ 
         $query = $this->database->prepare('SELECT `web`.*, `serv`.* FROM `websites` as `web` LEFT JOIN `server_website` as `servweb` ON `web`.`website_id` = `servweb`.`website_id` LEFT JOIN `server` as `serv` ON `servweb`.`server_id` = `serv`.`server_id` WHERE `web`.`user_id`= :userid');
         $query->bindParam(':userid', $userId, \PDO::PARAM_INT);
         $query->execute();
