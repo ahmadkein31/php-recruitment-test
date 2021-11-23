@@ -18,6 +18,10 @@ use Snowdog\DevTest\Controller\WebsiteAction;
 use Snowdog\DevTest\Menu\LoginMenu;
 use Snowdog\DevTest\Menu\RegisterMenu;
 use Snowdog\DevTest\Menu\WebsitesMenu;
+use Ahmad\SitemapMigrate\Command\SitemapMigrateCommand;
+use Ahmad\SitemapMigrate\Command\SitemapFormAction;
+use Ahmad\SitemapMigrate\Command\SitemapAction;
+use Ahmad\SitemapMigrate\Command\SitemapCurlAction;
 
 RouteRepository::registerRoute('GET', '/', IndexAction::class, 'execute');
 RouteRepository::registerRoute('GET', '/login', LoginFormAction::class, 'execute');
@@ -31,6 +35,11 @@ RouteRepository::registerRoute('POST', '/page', CreatePageAction::class, 'execut
 
 CommandRepository::registerCommand('migrate_db', MigrateCommand::class);
 CommandRepository::registerCommand('warm [id]', WarmCommand::class);
+
+RouteRepository::registerRoute('POST', '/sitemapcurl', SitemapCurlAction::class, 'execute');
+RouteRepository::registerRoute('GET', '/sitemap', SitemapFormAction::class, 'execute');
+RouteRepository::registerRoute('POST', '/sitemap', SitemapAction::class, 'execute');
+CommandRepository::registerCommand('sitemap_migrate [username] [filename]', SitemapMigrateCommand::class);
 
 Menu::register(LoginMenu::class, 200);
 Menu::register(RegisterMenu::class, 250);
