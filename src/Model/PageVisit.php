@@ -14,7 +14,7 @@ class PageVisit
     {
         $this->visit_id = intval($this->visit_id);
         $this->page_id = intval($this->page_id);
-        $this->visited_at = date ('Y-m-d', strtotime($this->visited_at));
+        $this->visited_at = date ('Y-m-d H:i:s', strtotime($this->visited_at));
         $this->number_time_visited = intval($this->number_time_visited);
     
     }

@@ -43,7 +43,7 @@ CREATE TABLE `page_visit` (
   `visit_id` int(11) unsigned NOT NULL AUTO_INCREMENT,
   `page_id` int(11) unsigned NOT NULL,
   `number_time_visited` int(11),
-  `visited_at` DATE NOT NULL,
+  `visited_at` DATETIME NOT NULL,
   PRIMARY KEY (`visit_id`),
   KEY `page_id` (`page_id`),
   CONSTRAINT `page_visit_page_fk` FOREIGN KEY (`page_id`) REFERENCES `pages` (`page_id`)

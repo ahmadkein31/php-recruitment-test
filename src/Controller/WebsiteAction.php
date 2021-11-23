@@ -66,7 +66,9 @@ class WebsiteAction
     protected function getLastVisitedTime($page)
     {
         if($page) {
-            return $this->pageVisitManager->getByPage($page)->visited_at;
+            if($visitedPage = $this->pageVisitManager->getByPage($page)){
+                return $visitedPage->visited_at;
+            }
         }
 
         return '';

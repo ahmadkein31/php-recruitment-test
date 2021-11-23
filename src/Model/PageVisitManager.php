@@ -42,7 +42,7 @@ class PageVisitManager
 
     public function update(Page $page, $visitedAt='', $numberTimeVisited = 1)
     {
-        $visitedAt = date('Y-m-d');
+        $visitedAt = date('Y-m-d H:i:s');
 
         $visit = $this->getByPage($page);
 

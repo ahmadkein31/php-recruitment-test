@@ -78,8 +78,11 @@ class IndexAction
     protected function getLeastVisitedPage()
     {
         if($this->user) {
-            $page = $this->pageManager->getPageById($this->pageVisitManager->getLeastVisitedPageByUser($this->user));
-            return $page->url;
+            if(!empty($this->pageVisitManager->getLeastVisitedPageByUser($this->user))){
+                $page = $this->pageManager->getPageById($this->pageVisitManager->getLeastVisitedPageByUser($this->user));
+                return $page->url;
+            }
+            return '';
         }
         return '';
     }
@@ -87,8 +90,10 @@ class IndexAction
     protected function getRecentlyVisitedPage()
     {
         if($this->user) {
-            $page = $this->pageManager->getPageById($this->pageVisitManager->getRecentlyVisitedPageByUser($this->user));
-            return $page->url;
+            if(!empty($this->pageVisitManager->getRecentlyVisitedPageByUser($this->user))){
+                $page = $this->pageManager->getPageById($this->pageVisitManager->getRecentlyVisitedPageByUser($this->user));
+                return $page->url;
+            }
         }
         return '';
     }
