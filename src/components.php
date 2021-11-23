@@ -19,9 +19,9 @@ use Snowdog\DevTest\Menu\LoginMenu;
 use Snowdog\DevTest\Menu\RegisterMenu;
 use Snowdog\DevTest\Menu\WebsitesMenu;
 use Ahmad\SitemapMigrate\Command\SitemapMigrateCommand;
-use Ahmad\SitemapMigrate\Command\SitemapFormAction;
-use Ahmad\SitemapMigrate\Command\SitemapAction;
-use Ahmad\SitemapMigrate\Command\SitemapCurlAction;
+use Ahmad\SitemapMigrate\Controller\SitemapFormAction;
+use Ahmad\SitemapMigrate\Controller\SitemapAction;
+use Ahmad\SitemapMigrate\Controller\SitemapCurlAction;
 
 RouteRepository::registerRoute('GET', '/', IndexAction::class, 'execute');
 RouteRepository::registerRoute('GET', '/login', LoginFormAction::class, 'execute');
